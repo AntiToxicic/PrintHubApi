@@ -13,13 +13,16 @@ public class PrinterService : IPrinterService
     {
         _printerRepository = printerRepository;
     }
-    
+
     public async Task<PrinterDto?> Add(CreatePrinterDto printerDto)
     {
         var printer = new Printer(printerDto.Name, printerDto.ConnectionType, printerDto.MacAddress);
         printer = await _printerRepository.Add(printer);
 
         if (printer is null) return null;
+
+        if (printer.MacAddress is not null && printer.MacAddress.Length != 17)
+            return null;
 
         return new PrinterDto(printer.Id, printer.Name, printer.ConnectionType, printer.MacAddress);
     }
@@ -46,9 +49,9 @@ public class PrinterService : IPrinterService
     public async Task Delete(uint printerId)
     {
         var printer = await _printerRepository.GetById(printerId);
-        
+
         if (printer is null) return;
-        
+
         await _printerRepository.Delete(printer);
     }
 }

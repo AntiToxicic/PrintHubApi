@@ -9,7 +9,7 @@ public interface IPrintJobService
     
     public Task<PrintJobDto?> GetById(uint printJobId);
     
-    public Task<PrintJobDto?> Update(PrintJob printerJob);
+    public Task<PrintJobDto?> Update(PrintJobDto printerJobDto);
     
     public Task Delete(uint printJobId);
 }

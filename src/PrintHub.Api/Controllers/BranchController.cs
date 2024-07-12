@@ -16,25 +16,23 @@ public class BranchApiController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateBranch([FromBody] CreateBranchDto branchDto)
+    public async Task<IActionResult> CreateBranch([FromBody] CreateBranchDto createBranchDto)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        var branch = await _branchService.Add(branchDto);
+        var branchDto = await _branchService.Add(createBranchDto);
 
-        if (branch is null)
-            return StatusCode(StatusCodes.Status500InternalServerError, "Филиал не был создан");
+        if (branchDto is null)
+            return StatusCode(StatusCodes.Status500InternalServerError, "Филиал не создан");
 
-        return Ok(branch);
+        return CreatedAtAction(nameof(GetBranch), 
+            new { branchId = branchDto.Id }, branchDto);
     }
 
     [HttpGet("{branchId}")]
     public async Task<IActionResult> GetBranch(uint branchId)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-
         var branch = await _branchService.GetById(branchId);
 
         if (branch is null)
@@ -49,22 +47,19 @@ public class BranchApiController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        var branch = await _branchService.Update(branchDto);
+        var updatedBranch = await _branchService.Update(branchDto);
 
-        if (branch is null)
+        if (updatedBranch is null)
             return NotFound();
 
-        return Ok(branch);
+        return Ok(updatedBranch);
     }
 
     [HttpDelete("{branchId}")]
     public async Task<IActionResult> DeleteBranch(uint branchId)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-
         await _branchService.Delete(branchId);
-        
-        return Ok();
+
+        return NoContent();
     }
 }

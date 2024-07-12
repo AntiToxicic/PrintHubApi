@@ -45,9 +45,9 @@ public class PrintJobService : IPrintJobService
             printJob.PrinterInstallationId);
     }
 
-    public async Task<PrintJobDto?> Update(PrintJob printerJob)
+    public async Task<PrintJobDto?> Update(PrintJobDto printerJobDto)
     {
-        var printJob = new PrintJob(printerJob.Name, printerJob.PageCount, printerJob.IsSuccess);
+        var printJob = new PrintJob(printerJobDto.Name, printerJobDto.PageCount, printerJobDto.IsSuccess);
         printJob = await _printJobRepository.Update(printJob);
 
         if (printJob is null) return null;
