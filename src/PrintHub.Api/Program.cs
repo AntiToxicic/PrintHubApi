@@ -1,29 +1,16 @@
-using Microsoft.EntityFrameworkCore;
-using PrintHub.Infrastructure;
-using PrintHubAPI.Extensions;
+namespace PrintHubAPI;
 
-var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddDbContext<MsSqlContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("PrintHub")));
-
-builder.Services.AddRepositories();
-builder.Services.AddServices();
-
-var app = builder.Build();
-
-if (app.Environment.IsDevelopment())
+public class Program
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    public static void Main(string[] args)
+    {
+        CreateHostBuilder(args).Build().Run();
+    }
+
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            });
 }
-
-app.UseHttpsRedirection();
-
-app.MapControllers();
-
-app.Run();
