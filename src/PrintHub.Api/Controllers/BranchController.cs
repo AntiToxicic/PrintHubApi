@@ -40,6 +40,17 @@ public class BranchApiController : ControllerBase
 
         return Ok(branch);
     }
+    
+    [HttpGet]
+    public async Task<IActionResult> GetAllBranches()
+    {
+        var branchesDtos = await _branchService.GetAll();
+
+        if (branchesDtos.Count == 0)
+            return NotFound();
+
+        return Ok(branchesDtos);
+    }
 
     [HttpPut]
     public async Task<IActionResult> UpdateBranch([FromBody] BranchDto branchDto)
@@ -62,4 +73,5 @@ public class BranchApiController : ControllerBase
 
         return NoContent();
     }
+
 }

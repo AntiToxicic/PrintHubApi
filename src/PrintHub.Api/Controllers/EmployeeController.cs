@@ -40,6 +40,17 @@ public class EmployeeApiController : ControllerBase
 
         return Ok(employeeDto);
     }
+    
+    [HttpGet]
+    public async Task<IActionResult> GetAllEmployee()
+    {
+        var employeeAllDto = await _employeeService.GetAll();
+
+        if (employeeAllDto.Count == 0)
+            return NotFound();
+
+        return Ok(employeeAllDto);
+    }
 
     [HttpPut]
     public async Task<IActionResult> UpdateEmployee([FromBody] EmployeeDto employeeDto)

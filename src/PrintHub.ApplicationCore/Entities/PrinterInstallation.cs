@@ -6,7 +6,7 @@ public class PrinterInstallation : EntityBase
     {
     }
 
-    public PrinterInstallation(string internalName, int internalSerialNumber, bool isDefault)
+    public PrinterInstallation(string internalName, int? internalSerialNumber, bool isDefault, uint printerId, uint branchId)
     {
         InternalName = internalName;
         InternalSerialNumber = internalSerialNumber;
@@ -15,7 +15,7 @@ public class PrinterInstallation : EntityBase
     
     public string InternalName { get; set; }
     
-    public int InternalSerialNumber { get; set; }
+    public int? InternalSerialNumber { get; set; }
     
     public bool IsDefault { get; set; }
     

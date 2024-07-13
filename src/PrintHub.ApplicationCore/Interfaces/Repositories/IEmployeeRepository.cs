@@ -11,4 +11,6 @@ public interface IEmployeeRepository
     public Task<Employee?> Update(Employee employee);
     
     public Task Delete(Employee employee);
+
+    public Task<IReadOnlyCollection<Employee>> GetAll();
 }

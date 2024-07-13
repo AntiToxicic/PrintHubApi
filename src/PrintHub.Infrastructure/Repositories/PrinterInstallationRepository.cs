@@ -16,6 +16,13 @@ public class PrinterInstallationRepository : IPrinterInstallationRepository
 
     public async Task<PrinterInstallation?> Add(PrinterInstallation printerInstallation)
     {
+        if (printerInstallation.InternalSerialNumber is null)
+        {
+            var maxSerialNumber = await _context.PrinterInstallations.MaxAsync(c => c.InternalSerialNumber) ?? 0;
+
+            printerInstallation.InternalSerialNumber = maxSerialNumber + 1;
+        }
+
         _context.PrinterInstallations.Add(printerInstallation);
         await _context.SaveChangesAsync();
 

@@ -55,4 +55,17 @@ public class EmployeeService : IEmployeeService
 
         await _employeeRepository.Delete(employee);
     }
+
+    public async Task<IReadOnlyCollection<EmployeeDto>> GetAll()
+    {
+        var employees = await _employeeRepository.GetAll();
+        var employeesDto = new List<EmployeeDto>();
+
+        foreach (var employee in employees)
+        {
+            employeesDto.Add(new EmployeeDto(employee.Id, employee.Name, employee.BranchId));
+        }
+
+        return employeesDto;
+    }
 }

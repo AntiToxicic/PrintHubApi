@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PrintHub.Core.Entities;
+using PrintHub.Core.Enums;
 using PrintHub.Core.Interfaces;
 using PrintHub.Core.Interfaces.Repositories;
 
@@ -37,5 +38,17 @@ public class PrinterRepository : IPrinterRepository
     {
         _context.Printers.Remove(printer);
         return _context.SaveChangesAsync();
+    }
+
+    public async Task<IReadOnlyCollection<Printer>> GetAll(ConnectionType? connectionType)
+    {
+        IQueryable<Printer> query = _context.Printers;
+
+        if (connectionType.HasValue)
+        {
+            query = query.Where(p => p.ConnectionType == connectionType.Value);
+        }
+
+        return await query.ToListAsync();
     }
 }

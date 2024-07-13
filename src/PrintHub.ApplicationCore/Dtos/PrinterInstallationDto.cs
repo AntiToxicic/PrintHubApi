@@ -2,7 +2,7 @@ namespace PrintHub.Core.Dtos;
 
 public class PrinterInstallationDto
 {
-    public PrinterInstallationDto(uint id, string internalName, int internalSerialNumber, bool isDefault, uint printerId, uint branchId)
+    public PrinterInstallationDto(uint id, string internalName, int? internalSerialNumber, bool isDefault, uint printerId, uint branchId)
     {
         Id = id;
         InternalName = internalName;
@@ -16,7 +16,7 @@ public class PrinterInstallationDto
     
     public string InternalName { get; set; }
     
-    public int InternalSerialNumber { get; set; }
+    public int? InternalSerialNumber { get; set; }
     
     public bool IsDefault { get; set; }
     

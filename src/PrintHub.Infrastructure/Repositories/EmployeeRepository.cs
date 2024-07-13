@@ -38,4 +38,7 @@ public class EmployeeRepository : IEmployeeRepository
         _context.Employees.Remove(employee);
         return _context.SaveChangesAsync();
     }
+
+    public async Task<IReadOnlyCollection<Employee>> GetAll() =>
+        await _context.Employees.ToListAsync();
 }

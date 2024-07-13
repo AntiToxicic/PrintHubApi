@@ -11,4 +11,6 @@ public interface IBranchRepository
     public Task<Branch?> Update(Branch branch);
     
     public Task Delete(Branch branch);
+
+    public Task<IReadOnlyCollection<Branch>> GetAll();
 }

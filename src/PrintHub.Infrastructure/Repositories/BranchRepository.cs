@@ -43,4 +43,8 @@ public class BranchRepository : IBranchRepository
         _context.Branches.Remove(branch);
         return _context.SaveChangesAsync();
     }
+
+    public async Task<IReadOnlyCollection<Branch>> GetAll() =>
+        await _context.Branches.ToListAsync();
+
 }

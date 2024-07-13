@@ -11,4 +11,6 @@ public interface IBranchService
     public Task<BranchDto?> Update(BranchDto branchDto);
     
     public Task Delete(uint branchId);
+
+    public Task<IReadOnlyCollection<BranchDto>> GetAll();
 }

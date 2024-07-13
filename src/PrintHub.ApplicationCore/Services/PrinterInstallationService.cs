@@ -18,8 +18,10 @@ public class PrinterInstallationService : IPrinterInstallationService
     {
         var printerInstallation = new PrinterInstallation(
             printerInstallationDto.InternalName,
-            printerInstallationDto.InternalSerialNumber, 
-            printerInstallationDto.IsDefault);
+            printerInstallationDto.InternalSerialNumber,
+            printerInstallationDto.IsDefault,
+            printerInstallationDto.PrinterId,
+            printerInstallationDto.BranchId);
 
         printerInstallation = await _installationRepository.Add(printerInstallation);
 
@@ -43,8 +45,8 @@ public class PrinterInstallationService : IPrinterInstallationService
         return new PrinterInstallationDto(
             printerInstallation.Id,
             printerInstallation.InternalName,
-            printerInstallation.InternalSerialNumber, 
-            printerInstallation.IsDefault, 
+            printerInstallation.InternalSerialNumber,
+            printerInstallation.IsDefault,
             printerInstallation.PrinterId,
             printerInstallation.BranchId);
     }
@@ -53,8 +55,10 @@ public class PrinterInstallationService : IPrinterInstallationService
     {
         var printerInstallation = new PrinterInstallation(
             printerInstallationDto.InternalName,
-            printerInstallationDto.InternalSerialNumber, 
-            printerInstallationDto.IsDefault);
+            printerInstallationDto.InternalSerialNumber,
+            printerInstallationDto.IsDefault,
+            printerInstallationDto.PrinterId,
+            printerInstallationDto.BranchId);
 
         printerInstallation = await _installationRepository.Update(printerInstallation);
 

@@ -1,5 +1,6 @@
 ﻿using PrintHub.Core.Dtos;
 using PrintHub.Core.Entities;
+using PrintHub.Core.Enums;
 using PrintHub.Core.Interfaces.Repositories;
 using PrintHub.Core.Interfaces.Services;
 
@@ -53,5 +54,18 @@ public class PrinterService : IPrinterService
         if (printer is null) return;
 
         await _printerRepository.Delete(printer);
+    }
+
+    public async Task<IReadOnlyCollection<PrinterDto>> GetAll(ConnectionType? connectionType)
+    {
+        var printers = await _printerRepository.GetAll(connectionType);
+        var printersDtos = new List<PrinterDto>();
+
+        foreach (var printer in printers)
+        {
+            printersDtos.Add(new PrinterDto(printer.Id, printer.Name, printer.ConnectionType, printer.MacAddress));
+        }
+
+        return printersDtos;
     }
 }

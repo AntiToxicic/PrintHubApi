@@ -11,4 +11,6 @@ public interface IEmployeeService
     public Task<EmployeeDto?> Update(EmployeeDto employee);
     
     public Task Delete(uint employeeId);
+
+    public Task<IReadOnlyCollection<EmployeeDto>> GetAll();
 }

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PrintHub.Core.Dtos;
+using PrintHub.Core.Enums;
 using PrintHub.Core.Interfaces.Services;
 
 namespace PrintHubAPI.Controllers;
@@ -39,6 +40,20 @@ public class PrinterController : ControllerBase
             return NotFound();
 
         return Ok(printerDto);
+    }
+
+    [HttpPost("all")]
+    public async Task<IActionResult> GetAllPrinters([FromBody] ConnectionType? connectionType)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+        
+        var printersDtos = await _printerService.GetAll(connectionType);
+
+        if (printersDtos.Count == 0)
+            return NotFound();
+
+        return Ok(printersDtos);
     }
 
     [HttpPut]

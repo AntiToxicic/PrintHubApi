@@ -52,4 +52,17 @@ public class BranchService : IBranchService
 
         await _branchRepository.Delete(branch);
     }
+
+    public async Task<IReadOnlyCollection<BranchDto>> GetAll()
+    {
+        var branches = await _branchRepository.GetAll();
+        var branchesDto = new List<BranchDto>();
+
+        foreach (var branch in branches)
+        {
+           branchesDto.Add(new BranchDto(branch.Id, branch.Name, branch.Location));
+        }
+
+        return branchesDto;
+    }
 }
